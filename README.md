@@ -9,28 +9,28 @@ To install django-otp, open up your terminal and type in the following command:
 
 ## Step 2:
 Next, you want to configure 2FA, and to do this we need to add the required django-otp configurations: ‘django_otp’ and ‘django_otp.plugins.otp_totp’
-- settings.py:
+settings.py:
 
- **INSTALLED_APPS = [
-      'django_otp',
-      'django_otp.plugins.otp_totp',]**
+ **INSTALLED_APPS = [  <br>
+      'django_otp',    <br>
+      'django_otp.plugins.otp_totp',]** 
 
 ## Step 3:
 Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middleware.
 - settings.py:
 
-## MIDDLEWARE = [
-##    'django_otp.middleware.OTPMiddleware',
-## ]
+ **MIDDLEWARE = [  <br>
+    'django_otp.middleware.OTPMiddleware',  <br>
+ ]**
 
 ## Step 4:
 Add the following code before your urls.py patterns list:
 - urls.py:
 
-## from django.contrib.auth.models import User
-## from django_otp.admin import OTPAdminSite
-## from django_otp.plugins.otp_totp.models import TOTPDevice
-## from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+**from django.contrib.auth.models import User <br>
+  from django_otp.admin import OTPAdminSite   <br>
+  from django_otp.plugins.otp_totp.models import TOTPDevice  <br>
+  from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin**
 
 ## Step 5:
 Next, you will need to create an OTP admin class so that you can register the user and TOTPDevice model in Django’s administration/admin panel.
