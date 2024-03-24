@@ -17,7 +17,7 @@ settings.py:
 
 ## Step 3:
 Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middleware.
-- settings.py:
+settings.py:
 
  **MIDDLEWARE = [  <br>
     'django_otp.middleware.OTPMiddleware',  <br>
@@ -25,7 +25,7 @@ Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middlewar
 
 ## Step 4:
 Add the following code before your urls.py patterns list:
-- urls.py:
+urls.py:
 
 **from django.contrib.auth.models import User <br>
   from django_otp.admin import OTPAdminSite   <br>
@@ -34,14 +34,13 @@ Add the following code before your urls.py patterns list:
 
 ## Step 5:
 Next, you will need to create an OTP admin class so that you can register the user and TOTPDevice model in Django’s administration/admin panel.
-- urls.py:
+urls.py:
 
-## class OTPAdmin(OTPAdminSite):
-##   pass
-##
-## admin_site = OTPAdmin(name='OTPAdmin')
-## admin_site.register(User)
-## admin_site.register(TOTPDevice, TOTPDeviceAdmin)
+**class OTPAdmin(OTPAdminSite): <br>
+   pass    <br>
+ admin_site = OTPAdmin(name='OTPAdmin') <br>
+ admin_site.register(User) <br>
+ admin_site.register(TOTPDevice, TOTPDeviceAdmin)**
 
 ## Step 6:
 Create the necessary tables in your database for django-otp:
@@ -67,13 +66,12 @@ Follow the steps below to enable 2FA:
 
 ## Step 9: Update Admin URL
 Replace the default admin URL with the following in urls.py:
-- urls.py
+urls.py
 
-## from .urls import admin_site
-##
-## urlpatterns = [
-##     path('admin/', admin_site.urls),         #path('admin/',admin.site.urls)   replace this code
-## ]
+**from .urls import admin_site   <br>
+ urlpatterns = [   <br>
+     path('admin/', admin_site.urls),         #path('admin/',admin.site.urls)   replace this code  <br>
+     ]**
 
 ## Step 10: Test 2FA
 Test the 2FA by logging into Django admin using Google Authenticator.
