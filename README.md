@@ -11,9 +11,9 @@ To install django-otp, open up your terminal and type in the following command:
 Next, you want to configure 2FA, and to do this we need to add the required django-otp configurations: ‘django_otp’ and ‘django_otp.plugins.otp_totp’
 - settings.py:
 
-## INSTALLED_APPS = [
-##   'django_otp',
-##   'django_otp.plugins.otp_totp',]
+ **INSTALLED_APPS = [
+      'django_otp',
+      'django_otp.plugins.otp_totp',]**
 
 ## Step 3:
 Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middleware.
