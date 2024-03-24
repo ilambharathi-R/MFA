@@ -9,12 +9,11 @@ pip install django-otp qrcode
 
 ## Step 2:
 Next, you want to configure 2FA, and to do this we need to add the required django-otp configurations: ‘django_otp’ and ‘django_otp.plugins.otp_totp’
-settings.py:
+### settings.py:
 
-INSTALLED_APPS = [
-   'django_otp',
-   'django_otp.plugins.otp_totp',
-]
+### INSTALLED_APPS = [
+###   'django_otp',
+###   'django_otp.plugins.otp_totp',]
 
 ## Step 3:
 Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middleware.
