@@ -5,7 +5,7 @@ This guide will help you configure Multi Factor Authentication (MFA) using One-T
 
 ## Step 1:
 To install django-otp, open up your terminal and type in the following command:
-## pip install django-otp qrcode
+- pip install django-otp qrcode
 
 ## Step 2:
 Next, you want to configure 2FA, and to do this we need to add the required django-otp configurations: ‘django_otp’ and ‘django_otp.plugins.otp_totp’
