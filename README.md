@@ -1,77 +1,111 @@
-# Multi-factor authentication (MFA) for your Django admin page
+# Django Admin Multi-Factor Authentication (MFA) Setup Guide
 
-This guide will help you configure Multi Factor Authentication (MFA) using One-Time Password (OTP) in your Django application using the django-otp package.
+This guide provides step-by-step instructions to configure Multi-Factor Authentication (MFA) using One-Time Passwords (OTP) for your Django admin page using the django-otp package.
 
+## Installation
 
-## Step 1:
-To install django-otp, open up your terminal and type in the following command:
-- pip install django-otp qrcode
+1. Install django-otp and qrcode using pip:
 
-## Step 2:
-Next, you want to configure 2FA, and to do this we need to add the required django-otp configurations: ‘django_otp’ and ‘django_otp.plugins.otp_totp’
-settings.py:
+    ```bash
+    pip install django-otp qrcode
+    ```
 
- **INSTALLED_APPS = [  <br>
-      'django_otp',    <br>
-      'django_otp.plugins.otp_totp',]** 
+## Configuration
 
-## Step 3:
-Next, you want to add ‘django_otp.middleware.OTPMiddleware’ to our middleware.
-settings.py:
+2. Add 'django_otp' and 'django_otp.plugins.otp_totp' to your INSTALLED_APPS in settings.py:
 
- **MIDDLEWARE = [  <br>
-    'django_otp.middleware.OTPMiddleware',  <br>
- ]**
+    ```python
+    INSTALLED_APPS = [
+        ...
+        'django_otp',
+        'django_otp.plugins.otp_totp',
+    ]
+    ```
 
-## Step 4:
-Add the following code before your urls.py patterns list:
-urls.py:
+3. Add 'django_otp.middleware.OTPMiddleware' to your MIDDLEWARE in settings.py:
 
-**from django.contrib.auth.models import User <br>
-  from django_otp.admin import OTPAdminSite   <br>
-  from django_otp.plugins.otp_totp.models import TOTPDevice  <br>
-  from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin**
+    ```python
+    MIDDLEWARE = [
+        ...
+        'django_otp.middleware.OTPMiddleware',
+    ]
+    ```
 
-## Step 5:
-Next, you will need to create an OTP admin class so that you can register the user and TOTPDevice model in Django’s administration/admin panel.
-urls.py:
+4. Import necessary modules and classes in your urls.py:
 
-**class OTPAdmin(OTPAdminSite): <br>
-   pass    <br>
- admin_site = OTPAdmin(name='OTPAdmin') <br>
- admin_site.register(User) <br>
- admin_site.register(TOTPDevice, TOTPDeviceAdmin)**
+    ```python
+    from django.contrib.auth.models import User
+    from django_otp.admin import OTPAdminSite
+    from django_otp.plugins.otp_totp.models import TOTPDevice
+    from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+    ```
 
-## Step 6:
-Create the necessary tables in your database for django-otp:
-- python manage.py migrate
+5. Create an OTP admin class and register the User and TOTPDevice models:
 
-Create a superuser to login to django admin:
-- python manage.py createsuperuser
+    ```python
+    class OTPAdmin(OTPAdminSite):
+        pass
 
-Run your server to see the changes:
-- python manage.py runserver 
+    admin_site = OTPAdmin(name='OTPAdmin')
+    admin_site.register(User)
+    admin_site.register(TOTPDevice, TOTPDeviceAdmin)
+    ```
 
-## Step 7:
-Head to the django admin panel via the following URL:
-- http://localhost:8000/admin
-Then proceed to log in with your recently created superuser (admin) credentials.
+## Database Setup
 
-## Step 8: Enable 2FA
-Follow the steps below to enable 2FA:
-- Go to the Django admin panel.
-- Add a new TOTP device and set tolerance level.
-- Update your timezone in settings.py.
-- Scan the QR code with Google Authenticator.
+6. Create the necessary tables in your database for django-otp:
 
-## Step 9: Update Admin URL
-Replace the default admin URL with the following in urls.py:
-urls.py
+    ```bash
+    python manage.py migrate
+    ```
 
-**from .urls import admin_site   <br>
- urlpatterns = [   <br>
-     path('admin/', admin_site.urls),         #path('admin/',admin.site.urls)   replace this code  <br>
-     ]**
+7. Create a superuser to access the Django admin:
+
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+## Run Server
+
+8. Run your server:
+
+    ```bash
+    python manage.py runserver
+    ```
+
+## Access Django Admin
+
+9. Open your web browser and go to the Django admin panel URL:
+
+    [http://localhost:8000/admin](http://localhost:8000/admin)
+
+   Log in with the superuser credentials you created earlier.
+
+## Enable Two-Factor Authentication (2FA)
+
+10. To enable 2FA:
+
+    - Navigate to the Django admin panel.
+    - Add a new TOTP device and set the tolerance level.
+    - Update your timezone in settings.py.
+    - Scan the QR code with Google Authenticator.
+
+## Update Admin URL
+
+11. Update the admin URL in urls.py:
+
+    ```python
+    from .urls import admin_site
+
+    urlpatterns = [
+        path('admin/', admin_site.urls),
+    ]
+    ```
+
+Replace the default admin URL with the provided code in your urls.py file.
+
+For further assistance or inquiries, please refer to the official Django documentation or contact our support team.
+
 
 ## Step 10: Test 2FA
 Test the 2FA by logging into Django admin using Google Authenticator.
