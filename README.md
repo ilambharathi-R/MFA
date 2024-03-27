@@ -1,3 +1,4 @@
+```markdown
 # Django Admin Multi-Factor Authentication (MFA) Setup Guide
 
 This guide provides step-by-step instructions to configure Multi-Factor Authentication (MFA) using One-Time Passwords (OTP) for your Django admin page using the django-otp package.
@@ -104,11 +105,10 @@ This guide provides step-by-step instructions to configure Multi-Factor Authenti
 
 Replace the default admin URL with the provided code in your urls.py file.
 
-For further assistance or inquiries, please refer to the official Django documentation or contact our support team.
-
-
 ## Step 10: Test 2FA
+
 Test the 2FA by logging into Django admin using Google Authenticator.
 
+For further assistance or inquiries, please refer to the official Django documentation or contact our support team.
 
-
+```
