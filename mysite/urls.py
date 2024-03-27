@@ -25,6 +25,7 @@ from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
 class OTPAdmin(OTPAdminSite):
     pass  
 
+
 admin_site = OTPAdmin(name='OTPAdmin')
 admin_site.register(User)
 admin_site.register(TOTPDevice, TOTPDeviceAdmin)
@@ -33,4 +34,6 @@ urlpatterns = [
      path('admin/', admin_site.urls),
 	# path('admin/', admin.site.urls),     #This the Default admin panel .Use this panel to register the TOTP device
     path('',include('myapp.urls')),
+
+
 ]
